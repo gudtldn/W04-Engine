@@ -4,6 +4,7 @@
 #include "UObject/ObjectFactory.h"
 #include "UObject/ObjectMacros.h"
 #include "Engine/Level.h"
+#include "UObject/Casts.h"
 
 class FObjectFactory;
 class AActor;
@@ -42,6 +43,12 @@ public:
 
     /** World에 존재하는 Actor를 제거합니다. */
     bool DestroyActor(AActor* ThisActor);
+
+    AActor* DuplicateActor(AActor* ThisActor);
+
+    template <typename T>
+        requires std::derived_from<T, AActor>
+    T* DuplicateActor(T* ThisActor);
 
 private:
     /* 현재 활성화된 레벨 : 1개로 가정 */
@@ -116,4 +123,8 @@ T* UWorld::SpawnActor()
     return Actor;
 }
 
-
+template <typename T> requires std::derived_from<T, AActor>
+T* UWorld::DuplicateActor(T* ThisActor)
+{
+    return Cast<T>(DuplicateActor(ThisActor));
+}

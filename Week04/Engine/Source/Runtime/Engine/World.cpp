@@ -108,6 +108,14 @@ bool UWorld::DestroyActor(AActor* ThisActor)
     return true;
 }
 
+AActor* UWorld::DuplicateActor(AActor* ThisActor)
+{
+    AActor* DuplicatedActor = Cast<AActor>(ThisActor->Duplicate());
+    ActorsArray.Add(DuplicatedActor);
+    PendingBeginPlayActors.Add(DuplicatedActor);
+    return DuplicatedActor;
+}
+
 void UWorld::SetOctreeSystem(const TArray<UPrimitiveComponent*>& Components)
 {
     if (OctreeSystem* Octree = this->GetOctreeSystem())
