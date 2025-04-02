@@ -7,8 +7,9 @@ class UGizmoArrowComponent : public UGizmoBaseComponent
     DECLARE_CLASS(UGizmoArrowComponent, UGizmoBaseComponent)
 
 public:
-    UGizmoArrowComponent();
-    virtual ~UGizmoArrowComponent() override;
+    UGizmoArrowComponent() = default;
+
+    virtual UObject* Duplicate() override;
 
     virtual void InitializeComponent() override;
     virtual void TickComponent(float DeltaTime) override;

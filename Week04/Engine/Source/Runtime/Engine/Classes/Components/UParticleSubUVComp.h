@@ -1,20 +1,25 @@
 #pragma once
 #include "UBillboardComponent.h"
 
+#define _TCHAR_DEFINED
+#include <wrl.h>
+
+
 class UParticleSubUVComp : public UBillboardComponent
 {
     DECLARE_CLASS(UParticleSubUVComp, UBillboardComponent)
 
 public:
     UParticleSubUVComp();
-    virtual ~UParticleSubUVComp() override;
+
+    virtual UObject* Duplicate() override;
 
     virtual void InitializeComponent() override;
     virtual void TickComponent(float DeltaTime) override;
 
     void SetRowColumnCount(int _cellsPerRow, int _cellsPerColumn);
 
-    ID3D11Buffer* vertexSubUVBuffer;
+    Microsoft::WRL::ComPtr<ID3D11Buffer> vertexSubUVBuffer;
     UINT numTextVertices;
 
 protected:

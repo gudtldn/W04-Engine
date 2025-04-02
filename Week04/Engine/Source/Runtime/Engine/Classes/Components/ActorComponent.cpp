@@ -3,6 +3,14 @@
 #include "UObject/UObjectArray.h"
 
 
+UObject* UActorComponent::Duplicate()
+{
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->Owner = Owner;
+    DuplicatedObject->bAutoActive = bAutoActive;
+    return DuplicatedObject;
+}
+
 void UActorComponent::InitializeComponent()
 {
     assert(!bHasBeenInitialized);

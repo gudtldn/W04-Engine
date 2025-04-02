@@ -6,6 +6,7 @@
 #include "PropertyEditor/ShowFlags.h"
 #include "UnrealEd/EditorViewportClient.h"
 #include "UnrealEd/PrimitiveBatch.h"
+#include "UObject/Casts.h"
 
 
 USkySphereComponent::USkySphereComponent()
@@ -13,8 +14,12 @@ USkySphereComponent::USkySphereComponent()
     SetType(StaticClass()->GetName());
 }
 
-USkySphereComponent::~USkySphereComponent()
+UObject* USkySphereComponent::Duplicate()
 {
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->UOffset = UOffset;
+    DuplicatedObject->VOffset = VOffset;
+    return DuplicatedObject;
 }
 
 void USkySphereComponent::InitializeComponent()

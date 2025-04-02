@@ -7,6 +7,13 @@
 #include "UnrealEd/Editor/EditorEngine.h"
 
 
+UObject* UGizmoBaseComponent::Duplicate()
+{
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->gizmoType = gizmoType;
+    return DuplicatedObject;
+}
+
 int UGizmoBaseComponent::CheckRayIntersection(FVector& rayOrigin, FVector& rayDirection, float& pfNearHitDistance)
 {
     int nIntersections = 0;

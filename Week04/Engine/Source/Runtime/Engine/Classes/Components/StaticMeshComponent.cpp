@@ -4,7 +4,16 @@
 #include "Launch/EngineLoop.h"
 #include "UObject/ObjectFactory.h"
 #include "UnrealEd/PrimitiveBatch.h"
+#include "UObject/Casts.h"
 
+
+UObject* UStaticMeshComponent::Duplicate()
+{
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->staticMesh = staticMesh;
+    DuplicatedObject->SelectedSubMeshIndex = SelectedSubMeshIndex;
+    return DuplicatedObject;
+}
 
 uint32 UStaticMeshComponent::GetNumMaterials() const
 {

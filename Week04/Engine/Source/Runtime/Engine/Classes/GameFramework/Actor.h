@@ -18,6 +18,8 @@ class AActor : public UObject
 public:
     AActor() = default;
 
+    virtual UObject* Duplicate() override;
+
     /** Actor가 게임에 배치되거나 스폰될 때 호출됩니다. */
     virtual void BeginPlay();
 
@@ -102,7 +104,7 @@ private:
 
 
     /** 현재 Actor가 삭제 처리중인지 여부 */
-    uint8 bActorIsBeingDestroyed : 1;
+    uint8 bActorIsBeingDestroyed : 1 = false;
 
     /* Editor에서 Tick을 돌릴지 여부 */
     bool bTickInEditor = true;

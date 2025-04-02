@@ -9,7 +9,8 @@ class USkySphereComponent : public UStaticMeshComponent
 
 public:
     USkySphereComponent();
-    virtual ~USkySphereComponent() override;
+
+    virtual UObject* Duplicate() override;
 
     virtual void InitializeComponent() override;
     virtual void TickComponent(float DeltaTime) override;

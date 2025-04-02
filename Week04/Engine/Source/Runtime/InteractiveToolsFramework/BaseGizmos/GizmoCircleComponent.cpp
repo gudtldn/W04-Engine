@@ -7,12 +7,12 @@
 #include "LevelEditor/SLevelEditor.h"
 #define DISC_RESOLUTION 128
 
-UGizmoCircleComponent::UGizmoCircleComponent()
-{
-}
 
-UGizmoCircleComponent::~UGizmoCircleComponent()
+UObject* UGizmoCircleComponent::Duplicate()
 {
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->inner = inner;
+    return DuplicatedObject;
 }
 
 bool UGizmoCircleComponent::IntersectsRay(const FVector& rayOrigin, const FVector& rayDir, float& dist)

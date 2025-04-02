@@ -3,14 +3,8 @@
 #include "Engine/World.h"
 #include "UnrealEd/EditorViewportClient.h"
 #include "LevelEditor/SLevelEditor.h"
+#include "UObject/Casts.h"
 
-UCameraComponent::UCameraComponent()
-{
-}
-
-UCameraComponent::~UCameraComponent()
-{
-}
 
 void UCameraComponent::InitializeComponent()
 {

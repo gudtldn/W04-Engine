@@ -21,6 +21,8 @@ public:
     {
     }
 
+    virtual UObject* Duplicate() override;
+
     /** AActor가 World에 Spawn되어 BeginPlay이전에 호출됩니다. */
     virtual void InitializeComponent();
 

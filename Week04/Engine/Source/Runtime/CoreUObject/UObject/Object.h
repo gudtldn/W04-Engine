@@ -69,6 +69,8 @@ public:
     /** Object를 Pending Destroy 상태로 바꿈니다. */
     void MarkAsGarbage();
 
+    virtual UObject* Duplicate();
+
 public:
     void* operator new(size_t size)
     {
@@ -96,5 +98,4 @@ public:
 
         return result;
     }
-private:
 };

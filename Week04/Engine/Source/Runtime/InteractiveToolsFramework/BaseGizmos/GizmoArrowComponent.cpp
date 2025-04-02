@@ -7,12 +7,11 @@
 #include "LevelEditor/SLevelEditor.h"
 
 
-UGizmoArrowComponent::UGizmoArrowComponent()
+UObject* UGizmoArrowComponent::Duplicate()
 {
-}
-
-UGizmoArrowComponent::~UGizmoArrowComponent()
-{
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->Dir = Dir;
+    return DuplicatedObject;
 }
 
 void UGizmoArrowComponent::InitializeComponent()

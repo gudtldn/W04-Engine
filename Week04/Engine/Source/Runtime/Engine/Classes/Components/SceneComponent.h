@@ -10,6 +10,8 @@ class USceneComponent : public UActorComponent
 public:
     USceneComponent();
 
+    virtual UObject* Duplicate() override;
+
     virtual void InitializeComponent() override;
     virtual void TickComponent(float DeltaTime) override;
     virtual int CheckRayIntersection(FVector& rayOrigin, FVector& rayDirection, float& pfNearHitDistance);
@@ -44,4 +46,5 @@ public:
     void SetRotation(FQuat _newRot) { QuatRotation = _newRot; }
     void SetScale(FVector _newScale) { RelativeScale3D = _newScale; }
     void SetupAttachment(USceneComponent* InParent);
+    // TODO: AttachToComponent 만들기 [SceneComponent.h:701]
 };

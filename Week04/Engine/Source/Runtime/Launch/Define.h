@@ -176,18 +176,18 @@ struct Ray
 
 struct FBoundingBox
 {
-    FBoundingBox(){}
+    FBoundingBox() = default;
     FBoundingBox(FVector _min, FVector _max) : min(_min), max(_max) {}
-	FVector min; // Minimum extents
-	float pad;
-	FVector max; // Maximum extents
-	float pad1;
+	FVector min{}; // Minimum extents
+	float pad = 0;
+	FVector max{}; // Maximum extents
+	float pad1 = 0;
 
-    bool Intersect(const FVector& rayOrigin, const FVector& rayDir, float& outDistance)
+    bool Intersect(const FVector& rayOrigin, const FVector& rayDir, float& outDistance) const
     {
         float tmin = -FLT_MAX;
         float tmax = FLT_MAX;
-        const float epsilon = 1e-6f;
+        constexpr float epsilon = 1e-6f;
 
         // X축 처리
         if (fabs(rayDir.X) < epsilon)

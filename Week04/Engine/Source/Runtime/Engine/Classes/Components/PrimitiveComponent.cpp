@@ -1,11 +1,14 @@
 #include "PrimitiveComponent.h"
 
-UPrimitiveComponent::UPrimitiveComponent()
-{
-}
+#include "UObject/Casts.h"
 
-UPrimitiveComponent::~UPrimitiveComponent()
+
+UObject* UPrimitiveComponent::Duplicate()
 {
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->AABB = AABB;
+    DuplicatedObject->m_Type = m_Type;
+    return DuplicatedObject;
 }
 
 void UPrimitiveComponent::InitializeComponent()

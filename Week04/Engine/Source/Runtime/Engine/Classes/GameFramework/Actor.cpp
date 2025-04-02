@@ -2,6 +2,42 @@
 
 #include "World.h"
 
+UObject* AActor::Duplicate()
+{
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->RootComponent = RootComponent
+                                          ? Cast<USceneComponent>(RootComponent->Duplicate())
+                                          : nullptr;
+    DuplicatedObject->Owner = Owner; // TODO: 추후에 OwnedActors 만들어야함
+    DuplicatedObject->Level = Level;
+
+    // for (UActorComponent* Comp : OwnedComponents)
+    // {
+    //     UActorComponent* DuplicatedComp = Cast<UActorComponent>(Comp->Duplicate());
+    //     DuplicatedObject->OwnedComponents.Add(DuplicatedComp);
+    //     DuplicatedComp->Owner = DuplicatedObject;
+    //
+    //     // 만약 SceneComponent를 상속 받았다면
+    //     if (USceneComponent* NewSceneComp = Cast<USceneComponent>(DuplicatedComp))
+    //     {
+    //         if (DuplicatedObject->RootComponent == nullptr)
+    //         {
+    //             DuplicatedObject->RootComponent = NewSceneComp;
+    //         }
+    //         else
+    //         {
+    //             NewSceneComp->SetupAttachment(RootComponent);
+    //         }
+    //     }
+    //
+    //     // TODO: RegisterComponent() 생기면 제거
+    //     DuplicatedComp->InitializeComponent();
+    // }
+
+    DuplicatedObject->bTickInEditor = bTickInEditor;
+    return DuplicatedObject;
+}
+
 void AActor::BeginPlay()
 {
     // TODO: 나중에 삭제를 Pending으로 하던가 해서 복사비용 줄이기

@@ -3,6 +3,7 @@
 #include "Define.h"
 class UBillboardComponent;
 
+// TODO: Actor로 변경
 class ULightComponentBase : public USceneComponent
 {
     DECLARE_CLASS(ULightComponentBase, USceneComponent)

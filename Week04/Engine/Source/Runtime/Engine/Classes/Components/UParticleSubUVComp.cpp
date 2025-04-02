@@ -3,6 +3,7 @@
 #include "UnrealEd/EditorViewportClient.h"
 #include "World.h"
 #include "LevelEditor/SLevelEditor.h"
+#include "UObject/Casts.h"
 
 
 UParticleSubUVComp::UParticleSubUVComp()
@@ -11,13 +12,18 @@ UParticleSubUVComp::UParticleSubUVComp()
     bIsLoop = true;
 }
 
-UParticleSubUVComp::~UParticleSubUVComp()
+UObject* UParticleSubUVComp::Duplicate()
 {
-	if (vertexSubUVBuffer)
-	{
-		vertexSubUVBuffer->Release();
-		vertexSubUVBuffer = nullptr;
-	}
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->vertexTextureBuffer = vertexTextureBuffer;
+    DuplicatedObject->numTextVertices = numTextVertices;
+    DuplicatedObject->bIsLoop = bIsLoop;
+    DuplicatedObject->indexU = indexU;
+    DuplicatedObject->indexV = indexV;
+    DuplicatedObject->second = second;
+    DuplicatedObject->CellsPerRow = CellsPerRow;
+    DuplicatedObject->CellsPerColumn = CellsPerColumn;
+    return DuplicatedObject;
 }
 
 void UParticleSubUVComp::InitializeComponent()

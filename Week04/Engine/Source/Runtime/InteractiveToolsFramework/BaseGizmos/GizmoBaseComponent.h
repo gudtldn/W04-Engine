@@ -22,6 +22,8 @@ public:
 public:
     UGizmoBaseComponent() = default;
 
+    virtual UObject* Duplicate() override;
+
     virtual int CheckRayIntersection(FVector& rayOrigin, FVector& rayDirection, float& pfNearHitDistance) override;
     virtual void TickComponent(float DeltaTime) override;
 

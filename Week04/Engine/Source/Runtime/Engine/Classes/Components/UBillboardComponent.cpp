@@ -16,18 +16,17 @@ UBillboardComponent::UBillboardComponent()
     SetType(StaticClass()->GetName());
 }
 
-UBillboardComponent::~UBillboardComponent()
+UObject* UBillboardComponent::Duplicate()
 {
-	if (vertexTextureBuffer)
-	{
-		vertexTextureBuffer->Release();
-		vertexTextureBuffer = nullptr;
-	}
-	if (indexTextureBuffer)
-	{
-		indexTextureBuffer->Release();
-		indexTextureBuffer = nullptr;
-	}
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->vertexTextureBuffer = vertexTextureBuffer;
+    DuplicatedObject->indexTextureBuffer = indexTextureBuffer;
+    DuplicatedObject->numVertices = numVertices;
+    DuplicatedObject->numIndices = numIndices;
+    DuplicatedObject->finalIndexU;
+    DuplicatedObject->finalIndexV;
+    DuplicatedObject->Texture = Texture;
+    return DuplicatedObject;
 }
 
 void UBillboardComponent::InitializeComponent()
@@ -61,11 +60,6 @@ void UBillboardComponent::SetTexture(FWString _fileName)
 	Texture = FEngineLoop::resourceMgr.GetTexture(_fileName);
 }
 
-void UBillboardComponent::SetUUIDParent(USceneComponent* _parent)
-{
-	m_parent = _parent;
-}
-
 
 FMatrix UBillboardComponent::CreateBillboardMatrix()
 {
@@ -88,7 +82,6 @@ FMatrix UBillboardComponent::CreateBillboardMatrix()
 	FMatrix LookAtCamera = FMatrix::Transpose(CameraView);
 	
 	FVector worldLocation = RelativeLocation;
-	if (m_parent) worldLocation = RelativeLocation + m_parent->GetWorldLocation();
 	FVector worldScale = RelativeScale3D;
 	FMatrix S = FMatrix::CreateScale(worldScale.X, worldScale.Y, worldScale.Z);
 	FMatrix R = LookAtCamera;

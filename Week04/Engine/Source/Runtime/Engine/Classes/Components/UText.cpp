@@ -11,13 +11,20 @@ UText::UText()
     SetType(StaticClass()->GetName());
 }
 
-UText::~UText()
+UObject* UText::Duplicate()
 {
-	if (vertexTextBuffer)
-	{
-		vertexTextBuffer->Release();
-		vertexTextBuffer = nullptr;
-	}
+    ThisClass* DuplicatedObject = Cast<ThisClass>(Super::Duplicate());
+    DuplicatedObject->vertexTextBuffer = vertexTextBuffer;
+    DuplicatedObject->vertexTextureArr = vertexTextureArr;
+    DuplicatedObject->numTextVertices = numTextVertices;
+    DuplicatedObject->text = text;
+    DuplicatedObject->quad = quad;
+    *const_cast<int*>(&DuplicatedObject->quadSize) = quadSize;
+    DuplicatedObject->RowCount = RowCount;
+    DuplicatedObject->ColumnCount = ColumnCount;
+    DuplicatedObject->quadWidth = quadWidth;
+    DuplicatedObject->quadHeight = quadHeight;
+    return DuplicatedObject;
 }
 
 void UText::InitializeComponent()
@@ -277,7 +284,7 @@ void UText::TextMVPRendering()
         FEngineLoop::renderer.UpdateConstant(MVP, NormalMatrix, UUIDColor, false);
 
     if (ShowFlags::GetInstance().currentFlags & static_cast<uint64>(EEngineShowFlags::SF_BillboardText)) {
-        FEngineLoop::renderer.RenderTextPrimitive(vertexTextBuffer, numTextVertices,
+        FEngineLoop::renderer.RenderTextPrimitive(vertexTextBuffer.Get(), numTextVertices,
             Texture->TextureSRV, Texture->SamplerState);
     }
     //Super::Render();
