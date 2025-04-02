@@ -67,10 +67,7 @@ public:
     }
 
     // TODO: CDO 만들면 제거
-    UObject* CreateObject() const
-    {
-        return ClassConstructor();
-    }
+    UObject* CreateObject();
 
 protected:
     virtual UObject* CreateDefaultObject();

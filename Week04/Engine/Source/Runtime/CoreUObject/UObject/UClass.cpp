@@ -36,6 +36,20 @@ bool UClass::IsChildOf(const UClass* SomeBase) const
     return false;
 }
 
+UObject* UClass::CreateObject()
+{
+    const uint32 Id = UEngineStatics::GenUUID();
+    const FString Name = GetName() + "_" + std::to_string(Id);
+
+    UObject* NewObject = ClassConstructor();
+    NewObject->ClassPrivate = this;
+    NewObject->NamePrivate = Name;
+    NewObject->UUID = Id;
+
+    GUObjectArray.AddObject(NewObject);
+    return NewObject;
+}
+
 UObject* UClass::CreateDefaultObject()
 {
     if (!ClassDefaultObject && ClassConstructor)
